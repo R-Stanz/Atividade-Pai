@@ -33,7 +33,11 @@ public class BT{
 				tmpNode = tmpNode.getRightSon();
 				affirmativeSympton = symptomQueue.remove();
 			}
-			else tmpNode = tmpNode.getLeftSon(isLeaf, prognostic);
+			else{
+				if(tmpNode.getLeftSon() == null) 
+					tmp.newLeftSon(isLeaf, prognostic);
+			       	tmpNode = tmpNode.getLeftSon(isLeaf, prognostic);
+			}
 
 			treeHeight += 1;
 		}
