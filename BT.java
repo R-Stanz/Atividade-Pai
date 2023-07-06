@@ -13,8 +13,8 @@ public class BT{
 	// branch of the tree of symptoms.
 	// Guided only by when there was a symptom
 	// (The affirmative answers and the tree height) 
-	public void setABranch(Queue<Integer> symptomsQueue, Integer prognostic){
-		Integer affirmativeSymptom = symptomsQueue.remove();
+	public void setABranch(Queue<Integer> symptomQueue, Integer prognostic){
+		Integer affirmativeSymptom = symptomQueue.remove();
 
 		// tmpNode => interact the nodes 
 		// (to move throught throughtthe BT)
@@ -24,8 +24,8 @@ public class BT{
 
 		// This iteration runs until the leafs while 
 		// achieving the goal of its method
-		while(symptomsQueue.size() > 0){
-			if(symptomsQueue.size() == 1) isLeaf = true;
+		while(symptomQueue.size() > 0){
+			if(symptomQueue.size() == 1) isLeaf = true;
 
 			if(treeHeight == affirmativeSymptom){
 				if(tmpNode.getRightSon() == null) 
