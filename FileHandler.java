@@ -24,7 +24,7 @@ public class FileHandler{
 	private Integer numbOfSickness;
 
 	private ArrayList<String> sicknessNames = new ArrayList<String>();
-	private ArrayList<String> symptomNames = new ArrayList<String>();
+	private ArrayList<String> symptomNames 	= new ArrayList<String>();
 	private Queue<Integer> symptomQueue;
 
 	// Constructor for the dataset file
@@ -122,7 +122,7 @@ public class FileHandler{
 
 	// Its supposed to work almost identicaly 
 	// 	  as the previous method.
-	public void runPrognostics(){
+	public void getPrognostics(){
 		if(isDataSet){ 
 			System.out.println("This method isn't meant to be used" +
 						  " on the dataset.");
