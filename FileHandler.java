@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Queue;
 import java.util.LinkedList;
 
@@ -89,7 +90,7 @@ public class FileHandler{
 
 					// Getting names of all symptoms
 					else if(lineCount < lastSymptomLine){
-						String symptom = dataReader.next();
+						String symptom 	= dataReader.next();
 						symptomNames.add(symptom);
 						lineCount += 1;
 					}
@@ -99,11 +100,11 @@ public class FileHandler{
 					// (Based on the file given
 					//   to test this program)
 					else if(dataReader.hasNextLine()){
-						Integer prognostic = dataReader.nextInt();
-						symptomQueue = new LinkedList<>();
+						Integer prognostic 	= dataReader.nextInt();
+						symptomQueue 		= new LinkedList<>();
 						Integer symptom;
 						for(Integer i = 0; i < numbOfSymptoms; i++){
-							symptom = dataReader.nextInt();
+							symptom 	= dataReader.nextInt();
 							symptomQueue.add(symptom);
 						}
 						tree.setABranch(symptomQueue, prognostic);
@@ -129,23 +130,37 @@ public class FileHandler{
 		else{
 			// A variable to append its content
 			// 	at the end of the file
-			String results;
+			String results = "";
 			try{
 				// The prognostic file may have a line with the
-				// 	   pacients name and under it
+				// 	  pacients names and bellow it
 				// 		their symptoms
 				File symptomsFile	= new File(fileAddress);
 				Scanner fileReader 	= new Scanner(symptomsFile);
+
+				// To hold the prognostics on each patient
+				HashSet<Integer> prognosticSet;
 
 				// It must call the checkSymptomPath and than
 				// use it on the result messages that will be
 				// 	appended at the end of the file
 				while(fileReader.hasNextLine()){
-					results += "Pacient: " + fileReader.nextLine();
-					results	+= "Prognostics";
-					Integer count = 0;
+					// Gets only the name of the patient
+					results 	+= "Pacient: " + fileReader.nextLine();
+
+					// Start getting the prognostics
+					results		+= "Prognostics";
+					symptomQueue 	 = new LinkedList<>();
+					while(fileReader.hasNextInt()){
+						Integer symptom = fileReader.nextInt();
+						symptomQueue.add(symptom); 
+					}
+					prognosticSet = checkSymptomPath(symptomQueue);
+					for(Integer index : prognosticSet){
+						results += " " + sicknessNames;
 					}
 				}
+				fileReader.close();
 			}
 			catch(FileNotFoundException e){
 				System.out.println("Error while trying to use the tree");
@@ -155,6 +170,7 @@ public class FileHandler{
 				// By the end of the input file must be appended
 				//  the index of the prognostic and before that 
 				// 	     the name of the patient
+				//    (which are already stored at results)
 				Writer output;
 				output = BufferedWriter(new FileWriter(fileAddress, true));
 				output.write(results);
@@ -162,7 +178,7 @@ public class FileHandler{
 
 			}
 			catch(IOException e){
-				System.out.println("Error while writing the prognostics results. exception " + e);
+				System.out.println("Error while writing the prognostics results. Exception " + e);
 			}
 		}
 	}

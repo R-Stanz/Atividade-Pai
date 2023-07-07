@@ -55,8 +55,8 @@ public class BT{
 	// 	    its path on the tree)
 	public HashSet<Integer> checkSymptomPath(Queue<Integer> symptomQueue){
 
-		// A hashset to put all possible prognostic
-		// 	    found along its way
+		// A hashset to store all possible prognostic
+		// 	      found along its way
 		HashSet<Integer> prognosticAc = new HashSet<Integer>();
 		
 		// Queue with the indexes of
