@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.io.File;
@@ -51,7 +52,7 @@ public class FileHandler{
 				// Gets the number of sickness on the file
 				//     (that may be on the first line)
 				if(dataReader.hasNextInt()) 
-					Integer numbOfSickness = dataReader.nextInt();
+					numbOfSickness = dataReader.nextInt();
 				else{
 					System.out.println("File out of format!");
 					return;
@@ -126,6 +127,9 @@ public class FileHandler{
 						  " on the dataset.");
 		}
 		else{
+			// A variable to append its content
+			// 	at the end of the file
+			String results;
 			try{
 				// The prognostic file may have a line with the
 				// 	   pacients name and under it
@@ -133,11 +137,32 @@ public class FileHandler{
 				File symptomsFile	= new File(fileAddress);
 				Scanner fileReader 	= new Scanner(symptomsFile);
 
-				// 
+				// It must call the checkSymptomPath and than
+				// use it on the result messages that will be
+				// 	appended at the end of the file
+				while(fileReader.hasNextLine()){
+					results += "Pacient: " + fileReader.nextLine();
+					results	+= "Prognostics";
+					Integer count = 0;
+					}
+				}
 			}
 			catch(FileNotFoundException e){
 				System.out.println("Error while trying to use the tree");
 				e.printStackTrace();
+			}
+			try{
+				// By the end of the input file must be appended
+				//  the index of the prognostic and before that 
+				// 	     the name of the patient
+				Writer output;
+				output = BufferedWriter(new FileWriter(fileAddress, true));
+				output.write(results);
+				output.close();
+
+			}
+			catch(IOException e){
+				System.out.println("Error while writing the prognostics results. exception " + e);
 			}
 		}
 	}
