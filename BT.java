@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -9,35 +10,83 @@ public class BT{
 	// Binary Tree Constructor
 	BT(){}
 
-	// Sets the necessary nodes and the leaf prognostic of a
-	// branch of the tree of symptoms.
-	// Guided only by when there was a symptom
-	// (The affirmative answers and the tree height) 
+	// Alters a hole branch base on list
+	//   of symptoms from the dataset 
 	public void setABranch(Queue<Integer> symptomQueue, Integer prognostic){
+		
+		// Queue with the indexes of
+		//     positive symptoms
 		Integer affirmativeSymptom = symptomQueue.remove();
 
-		// tmpNode => interact the nodes 
+		//    tmpNode => interation node 
 		// (to move throught throughtthe BT)
 		Node tmpNode 		= root;
-		Integer treeHeight 	= 1;
-		Boolean isLeaf		= false;
+		Integer treeHeight 	= 0;
 
-		// This iteration runs until the leafs while 
-		// achieving the goal of its method
+		// This iteration runs until the reach the last 
+		// 	  positive answer for symptoms
+		// (ending by putting the current prognostic 
+		// 	 on the last node of its path)
 		while(symptomQueue.size() > 0){
-			if(symptomQueue.size() == 1) isLeaf = true;
-
 			if(treeHeight == affirmativeSymptom){
 				if(tmpNode.getRightSon() == null) 
-					tmp.newRightSon(isLeaf, prognostic);
-				tmpNode = tmpNode.getRightSon();
-				affirmativeSympton = symptomQueue.remove();
+					tmp.newRightSon();
+				tmpNode 		= tmpNode.getRightSon();
+				affirmativeSympton 	= symptomQueue.remove();
 			}
 			else{
 				if(tmpNode.getLeftSon() == null) 
-					tmp.newLeftSon(isLeaf, prognostic);
-			       	tmpNode = tmpNode.getLeftSon(isLeaf, prognostic);
+					tmp.newLeftSon();
+			       	tmpNode 		= tmpNode.getLeftSon();
 			}
+
+			// Puts the prognostic on the last node
+			// 		of its path
+			if(symptomQueue.size() == 0) 
+				tmpNode.setPrognostic(prognostic);
+
+			treeHeight += 1;
+		}
+	}
+
+	// Based on the affirmative answers gets
+	// 	all possible prognostics
+	//   (By checking checking the nodes on 
+	// 	    its path on the tree)
+	public HashSet<Integer> checkSymptomPath(Queue<Integer> symptomQueue){
+
+		// A hashset to put all possible prognostic
+		// 	    found along its way
+		HashSet<Integer> prognosticAc = new HashSet<Integer>();
+		
+		// Queue with the indexes of
+		//     positive symptoms
+		Integer affirmativeSymptom = symptomQueue.remove();
+
+		//    tmpNode => interation node 
+		// (to move throught throughtthe BT)
+		Node tmpNode 		= root;
+		Integer treeHeight 	= 0;
+
+		// Null nodes mean that the dataset
+		// 	didn't track after
+		// 	    that point
+		while(symptomQueue.size() > 0){
+			if(treeHeight == affirmativeSymptom){
+				if(tmpNode.getRightSon() == null) 
+					return prognosticAc;
+				tmpNode 		= tmpNode.getRightSon();
+			}
+			else{
+				if(tmpNode.getLeftSon() == null) 
+					return prognosticAc;
+			       	tmpNode 		= tmpNode.getLeftSon();
+			}
+
+			// Puts the prognostic on the last node
+			// 	       on its path
+			HashSet<Integer> nodePrognostic = tmpNode.getPrognostic();
+			prognosticAc.addAll(nodePrognostic);
 
 			treeHeight += 1;
 		}

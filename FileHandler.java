@@ -1,5 +1,8 @@
-import java.io File;
-import java.io FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.Writer;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Queue;
@@ -13,6 +16,10 @@ public class FileHandler{
 	private Boolean isDataSet;
 	private String	fileAddress;
 	private BT tree	= new BT();
+	
+	// Important for when reading the
+	// 	patient symptoms
+	private Integer numbOfSickness;
 
 	private ArrayList<String> sicknessNames = new ArrayList<String>();
 	private ArrayList<String> symptomNames = new ArrayList<String>();
@@ -42,7 +49,7 @@ public class FileHandler{
 				Scanner dataReader 	= new Scanner(dataSet);
 				
 				// Gets the number of sickness on the file
-				// 	(that may be on the first line)
+				//     (that may be on the first line)
 				if(dataReader.hasNextInt()) 
 					Integer numbOfSickness = dataReader.nextInt();
 				else{
@@ -51,9 +58,9 @@ public class FileHandler{
 				}
 
 				// Gets the number of symptoms on the file
-				// (that may be on the first line)
+				//     (that may be on the first line)
 				if(dataReader.hasNextInteger()) 
-					Integer numbOfSymptoms = dataReader.nextInt();
+					numbOfSymptoms = dataReader.nextInt();
 				else{
 					System.out.println("File out of format!");
 					return;
@@ -102,9 +109,34 @@ public class FileHandler{
 					}
 					else break;
 				}
+				dataReader.close();
 			}
 			catch(FileNotFoundException e){
 				System.out.println("Error while building the tree");
+				e.printStackTrace();
+			}
+		}
+	}
+
+	// Its supposed to work almost identicaly 
+	// 	  as the previous method.
+	public void runPrognostics(){
+		if(isDataSet){ 
+			System.out.println("This method isn't meant to be used" +
+						  " on the dataset.");
+		}
+		else{
+			try{
+				// The prognostic file may have a line with the
+				// 	   pacients name and under it
+				// 		their symptoms
+				File symptomsFile	= new File(fileAddress);
+				Scanner fileReader 	= new Scanner(symptomsFile);
+
+				// 
+			}
+			catch(FileNotFoundException e){
+				System.out.println("Error while trying to use the tree");
 				e.printStackTrace();
 			}
 		}
