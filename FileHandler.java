@@ -124,7 +124,6 @@ public class FileHandler{
 							//   symptoms indexes
 							if(symptom == 1) symptomQueue.add(i);
 						}
-						System.out.println(symptomQueue);
 						tree.setABranch(symptomQueue, prognostic);
 					}
 					else break;

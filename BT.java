@@ -10,6 +10,24 @@ public class BT{
 	// Binary Tree Constructor
 	BT(){}
 
+	/*
+	private void printRec(Node node){
+		if(node.getLeftSon() != null){ 
+			System.out.println("get Left");
+			printRec(node.getLeftSon());
+		}
+		if(node.getRightSon() != null){
+			System.out.println("get Right");
+		       	printRec(node.getRightSon());
+		}
+		System.out.println("Node");
+	}
+
+	public void printTree(){
+		printRec(root);
+	}
+	*/
+
 	// Alters a hole branch base on list
 	//   of symptoms from the dataset 
 	public void setABranch(Queue<Integer> symptomQueue, Integer prognostic){
@@ -27,23 +45,27 @@ public class BT{
 		// 	  positive answer for symptoms
 		// (ending by putting the current prognostic 
 		// 	 on the last node of its path)
-		while(symptomQueue.size() > 0){
-			if(treeHeight > affirmativeSymptom){
+		while(true){
+			if(treeHeight == affirmativeSymptom){
+
 				if(tmpNode.getRightSon() == null) 
 					tmpNode.newRightSon();
-				tmpNode 		= tmpNode.getRightSon();
-				affirmativeSymptom 	= symptomQueue.remove();
+				tmpNode	= tmpNode.getRightSon();
+
+				//   Break loop condition
+				// (last node of this path)
+				if(symptomQueue.size() == 0){
+					tmpNode.setPrognostic(prognostic);
+					break;
+				}
+
+				affirmativeSymptom = symptomQueue.remove();
 			}
 			else{
 				if(tmpNode.getLeftSon() == null) 
 					tmpNode.newLeftSon();
 			       	tmpNode 		= tmpNode.getLeftSon();
 			}
-
-			// Puts the prognostic on the last node
-			// 		of its path
-			if(symptomQueue.size() == 0) 
-				tmpNode.setPrognostic(prognostic);
 
 			treeHeight += 1;
 		}
