@@ -44,7 +44,9 @@ public class FileHandler{
 			return ;
 		}
 		else{
-			this.tree = withTree.tree;
+			this.tree 		= withTree.tree;
+			this.sicknessNames 	= withTree.sicknessNames;
+			this.symptomNames 	= withTree.symptomNames;
 		}
 	}
 
@@ -167,9 +169,6 @@ public class FileHandler{
 						symptomQueue.add(symptom); 
 					}
 					prognosticSet = tree.checkSymptomPath(symptomQueue);
-					for(String prog : sicknessNames){
-						System.out.println(prog);
-					}
 					System.out.println(prognosticSet.size());
 					for(Integer index : prognosticSet){
 						results += " " + sicknessNames.get(index);
