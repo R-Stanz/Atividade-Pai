@@ -110,7 +110,7 @@ public class FileHandler{
 					// 	line-by-line
 					// (Based on the file given
 					//   to test this program)
-					else if(dataReader.hasNextLine()){
+					else if(dataReader.hasNextInt()){
 						Integer prognostic 	= dataReader.nextInt();
 						symptomQueue 		= new LinkedList<>();
 						Integer symptom;
