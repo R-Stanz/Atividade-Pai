@@ -10,7 +10,7 @@ public class Runner{
 				   "\n (documents/SintomasMenor.txt and"+
 				   "documents/pacientes.txt)");
 		System.out.println("Calling the tree builder");
-		dataSet.treeBuild();
+		dataSet.buildTree();
 		System.out.println("Tree builder done!");
 		System.out.println("Calling the method to get the "+
 				   "patients prognostics.");
