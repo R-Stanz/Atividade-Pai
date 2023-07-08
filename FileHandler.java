@@ -21,8 +21,6 @@ public class FileHandler{
 	
 	// Important for when reading the
 	// 	patient symptoms
-	private Integer numbOfSickness;
-
 	private ArrayList<String> sicknessNames = new ArrayList<String>();
 	private ArrayList<String> symptomNames 	= new ArrayList<String>();
 	private Queue<Integer> symptomQueue;
@@ -52,6 +50,7 @@ public class FileHandler{
 				
 				// Gets the number of sickness on the file
 				//     (that may be on the first line)
+				Integer numbOfSickness;
 				if(dataReader.hasNextInt()) 
 					numbOfSickness = dataReader.nextInt();
 				else{
@@ -61,7 +60,8 @@ public class FileHandler{
 
 				// Gets the number of symptoms on the file
 				//     (that may be on the first line)
-				if(dataReader.hasNextInteger()) 
+				Integer numbOfSymptoms;
+				if(dataReader.hasNextInt()) 
 					numbOfSymptoms = dataReader.nextInt();
 				else{
 					System.out.println("File out of format!");
@@ -155,7 +155,7 @@ public class FileHandler{
 						Integer symptom = fileReader.nextInt();
 						symptomQueue.add(symptom); 
 					}
-					prognosticSet = checkSymptomPath(symptomQueue);
+					prognosticSet = tree.checkSymptomPath(symptomQueue);
 					for(Integer index : prognosticSet){
 						results += " " + sicknessNames;
 					}
@@ -171,8 +171,7 @@ public class FileHandler{
 				//  the index of the prognostic and before that 
 				// 	     the name of the patient
 				//    (which are already stored at results)
-				Writer output;
-				output = BufferedWriter(new FileWriter(fileAddress, true));
+				BufferedWriter output = new BufferedWriter(new FileWriter(fileAddress, true));
 				output.write(results);
 				output.close();
 
