@@ -28,7 +28,7 @@ public class BT{
 		// (ending by putting the current prognostic 
 		// 	 on the last node of its path)
 		while(symptomQueue.size() > 0){
-			if(treeHeight == affirmativeSymptom){
+			if(treeHeight > affirmativeSymptom){
 				if(tmpNode.getRightSon() == null) 
 					tmpNode.newRightSon();
 				tmpNode 		= tmpNode.getRightSon();

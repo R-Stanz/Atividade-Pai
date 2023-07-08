@@ -92,7 +92,6 @@ public class FileHandler{
 				Integer lastSicknessLine 	= numbOfSickness;
 				Integer lastSymptomLine		= lastSicknessLine + numbOfSymptoms;
 
-						System.out.println(lastSicknessLine);
 				while(true){
 					// Getting names of all sicknesses
 					if(lineCount <= lastSicknessLine){
@@ -116,14 +115,14 @@ public class FileHandler{
 					// (Based on the file given
 					//   to test this program)
 					else if(dataReader.hasNextInt()){
-						System.out.println("array");
-						System.out.println(sicknessNames);
 						Integer prognostic 	= dataReader.nextInt();
 						symptomQueue 		= new LinkedList<>();
 						Integer symptom;
 						for(Integer i = 0; i < numbOfSymptoms; i++){
 							symptom 	= dataReader.nextInt();
-							symptomQueue.add(symptom);
+							// Saves only the posite 
+							//   symptoms indexes
+							if(symptom == 1) symptomQueue.add(i);
 						}
 						System.out.println(symptomQueue);
 						tree.setABranch(symptomQueue, prognostic);
