@@ -20,7 +20,7 @@ public class Node{
 
 	public void newLeftSon(){
 		Node node = new Node();
-		this.leftNode = node;
+		this.leftSon= node;
 	}
 
 	// Getter and Setter for Right Sons
@@ -29,8 +29,8 @@ public class Node{
 	}
 
 	public void newRightSon(){
-		Node node = new Node(prognostic);
-		this.rightNode = node;
+		Node node = new Node();
+		this.rightSon = node;
 	}
 
 	// Getter and Setter for Prognostics

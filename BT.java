@@ -30,13 +30,13 @@ public class BT{
 		while(symptomQueue.size() > 0){
 			if(treeHeight == affirmativeSymptom){
 				if(tmpNode.getRightSon() == null) 
-					tmp.newRightSon();
+					tmpNode.newRightSon();
 				tmpNode 		= tmpNode.getRightSon();
-				affirmativeSympton 	= symptomQueue.remove();
+				affirmativeSymptom 	= symptomQueue.remove();
 			}
 			else{
 				if(tmpNode.getLeftSon() == null) 
-					tmp.newLeftSon();
+					tmpNode.newLeftSon();
 			       	tmpNode 		= tmpNode.getLeftSon();
 			}
 
@@ -90,5 +90,7 @@ public class BT{
 
 			treeHeight += 1;
 		}
+		// For when the whole path is inside the tree
+		return prognosticAc;
 	}
 }

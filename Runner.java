@@ -4,7 +4,7 @@ public class Runner{
 
 		System.out.println("The program has started");
 		FileHandler dataSet 	= new FileHandler();
-		FileHandler patients 	= new FileHandler("")
+		FileHandler patients 	= new FileHandler("");
 		System.out.println("Dataset and the patients data were" +
 			           " called with default file addresses"+
 				   "\n (documents/SintomasMenor.txt and"+
