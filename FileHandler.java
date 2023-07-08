@@ -92,11 +92,14 @@ public class FileHandler{
 				Integer lastSicknessLine 	= numbOfSickness;
 				Integer lastSymptomLine		= lastSicknessLine + numbOfSymptoms;
 
+						System.out.println(lastSicknessLine);
 				while(true){
-
 					// Getting names of all sicknesses
 					if(lineCount <= lastSicknessLine){
-						String sickness = dataReader.next();
+						// The first line is the
+						//  rest of the #1 line
+						if(lineCount == 1) dataReader.nextLine();
+						String sickness = dataReader.nextLine();
 						sicknessNames.add(sickness);
 						lineCount += 1;
 					}
@@ -113,6 +116,8 @@ public class FileHandler{
 					// (Based on the file given
 					//   to test this program)
 					else if(dataReader.hasNextInt()){
+						System.out.println("array");
+						System.out.println(sicknessNames);
 						Integer prognostic 	= dataReader.nextInt();
 						symptomQueue 		= new LinkedList<>();
 						Integer symptom;
@@ -120,10 +125,12 @@ public class FileHandler{
 							symptom 	= dataReader.nextInt();
 							symptomQueue.add(symptom);
 						}
+						System.out.println(symptomQueue);
 						tree.setABranch(symptomQueue, prognostic);
 					}
 					else break;
 				}
+
 				dataReader.close();
 			}
 			catch(FileNotFoundException e){
