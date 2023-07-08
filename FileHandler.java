@@ -37,6 +37,17 @@ public class FileHandler{
 		else this.fileAddress 	= address;
 	}
 
+	public void getCopyTree(FileHandler withTree){
+		if(this.isDataSet){
+			System.out.println("This method is meant to be called"+
+					   " by the dataset");
+			return ;
+		}
+		else{
+			this.tree = withTree.tree;
+		}
+	}
+
 	public void buildTree(){
 		if(!this.isDataSet){ 
 			System.out.println("This method is intended only"+
@@ -76,20 +87,20 @@ public class FileHandler{
 
 				// Defining only a few markers beforehand
 				Integer lineCount 		= 1;
-				Integer lastSicknessLine 	= lineCount + numbOfSickness;
+				Integer lastSicknessLine 	= numbOfSickness;
 				Integer lastSymptomLine		= lastSicknessLine + numbOfSymptoms;
 
 				while(true){
 
 					// Getting names of all sicknesses
-					if(lineCount < lastSicknessLine){
+					if(lineCount <= lastSicknessLine){
 						String sickness = dataReader.next();
 						sicknessNames.add(sickness);
 						lineCount += 1;
 					}
 
 					// Getting names of all symptoms
-					else if(lineCount < lastSymptomLine){
+					else if(lineCount <= lastSymptomLine){
 						String symptom 	= dataReader.next();
 						symptomNames.add(symptom);
 						lineCount += 1;
