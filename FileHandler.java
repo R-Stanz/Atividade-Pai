@@ -155,20 +155,24 @@ public class FileHandler{
 				// It must call the checkSymptomPath and than
 				// use it on the result messages that will be
 				// 	appended at the end of the file
-				while(fileReader.hasNextLine()){
+				while(fileReader.hasNext()){
 					// Gets only the name of the patient
 					results 	+= "Pacient: " + fileReader.nextLine();
 
 					// Start getting the prognostics
-					results		+= "Prognostics";
+					results		+= "\nPrognostics:";
 					symptomQueue 	 = new LinkedList<>();
 					while(fileReader.hasNextInt()){
 						Integer symptom = fileReader.nextInt();
 						symptomQueue.add(symptom); 
 					}
 					prognosticSet = tree.checkSymptomPath(symptomQueue);
+					for(String prog : sicknessNames){
+						System.out.println(prog);
+					}
+					System.out.println(prognosticSet.size());
 					for(Integer index : prognosticSet){
-						results += " " + sicknessNames;
+						results += " " + sicknessNames.get(index);
 					}
 				}
 				fileReader.close();
