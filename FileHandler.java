@@ -170,8 +170,11 @@ public class FileHandler{
 					}
 					prognosticSet = tree.checkSymptomPath(symptomQueue);
 					System.out.println(prognosticSet.size());
-					for(Integer index : prognosticSet){
-						results += " " + sicknessNames.get(index);
+					if(prognosticSet.isEmpty()) results += " Unknown";
+					else{
+						for(Integer index : prognosticSet){
+							results += " " + sicknessNames.get(index);
+						}
 					}
 				}
 				fileReader.close();

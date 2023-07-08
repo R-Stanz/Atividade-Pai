@@ -72,21 +72,22 @@ public class BT{
 		// 	didn't track after
 		// 	    that point
 		while(symptomQueue.size() > 0){
+
+			// Puts the prognostic on the last node on its set
+			HashSet<Integer> nodePrognostic = tmpNode.getPrognostic();
+			prognosticAc.addAll(nodePrognostic);
+
 			if(treeHeight == affirmativeSymptom){
 				if(tmpNode.getRightSon() == null) 
 					return prognosticAc;
 				tmpNode 		= tmpNode.getRightSon();
+				affirmativeSymptom 	= symptomQueue.remove();
 			}
 			else{
 				if(tmpNode.getLeftSon() == null) 
 					return prognosticAc;
 			       	tmpNode 		= tmpNode.getLeftSon();
 			}
-
-			// Puts the prognostic on the last node
-			// 	       on its path
-			HashSet<Integer> nodePrognostic = tmpNode.getPrognostic();
-			prognosticAc.addAll(nodePrognostic);
 
 			treeHeight += 1;
 		}
