@@ -170,8 +170,11 @@ public class FileHandler{
 				// 	appended at the end of the file
 				while(fileReader.hasNext()){
 					// Gets only the name of the patient
-					if(firstPatient) 	firstPatient = false;
-					else			fileReader.nextLine();
+					if(firstPatient) firstPatient = false;
+					else{
+						fileReader.nextLine();
+						results += "\n";
+					}
 					results 		+= "Pacient: " + fileReader.nextLine();
 
 					// Starts getting the prognostics
@@ -191,13 +194,13 @@ public class FileHandler{
 						else				break;
 						if(symptom == 1) 		symptomQueue.add(i);
 					}
-					System.out.println(symptomQueue);
 					prognosticSet = tree.checkSymptomPath(symptomQueue);
 					System.out.println(prognosticSet.size());
 					if(prognosticSet.isEmpty()) results += " Unknown";
 					else{
 						for(Integer index : prognosticSet){
-							results += " " + sicknessNames.get(index);
+							System.out.println(index);
+							results += "\t " + sicknessNames.get(index-1);
 						}
 					}
 				}

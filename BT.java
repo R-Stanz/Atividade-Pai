@@ -22,10 +22,6 @@ public class BT{
 		}
 		System.out.println("Node");
 	}
-
-	public void printTree(){
-		printRec(root);
-	}
 	*/
 
 	// Alters a hole branch base on list
@@ -93,27 +89,29 @@ public class BT{
 		// Null nodes mean that the dataset
 		// 	didn't track after
 		// 	    that point
-		while(symptomQueue.size() > 0){
+		while(true){
 
 			// Puts the prognostic on the last node on its set
 			HashSet<Integer> nodePrognostic = tmpNode.getPrognostic();
 			prognosticAc.addAll(nodePrognostic);
 
-			if(treeHeight == affirmativeSymptom){
+			if(treeHeight >= affirmativeSymptom){
+
 				if(tmpNode.getRightSon() == null) 
 					return prognosticAc;
-				tmpNode 		= tmpNode.getRightSon();
-				affirmativeSymptom 	= symptomQueue.remove();
+				tmpNode = tmpNode.getRightSon();
+				
+				// Can't remove on an empty Queue
+				if(symptomQueue.size() > 0) 
+					affirmativeSymptom = symptomQueue.remove();
 			}
 			else{
-				if(tmpNode.getLeftSon() == null) 
+				if(tmpNode.getLeftSon() == null)
 					return prognosticAc;
-			       	tmpNode 		= tmpNode.getLeftSon();
+			       	tmpNode	= tmpNode.getLeftSon();
 			}
-
 			treeHeight += 1;
 		}
-		// For when the whole path is inside the tree
-		return prognosticAc;
 	}
+
 }
