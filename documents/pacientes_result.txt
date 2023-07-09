@@ -1,0 +1,10 @@
+Fabio
+	1	0	1	1	0	1	0	0	0	0	1
+Renato
+	0	1	0	1	1	0	1	1	1	0	0
+
+Pacient: Fabio
+Prognostics:	 Chicken pox
+
+Pacient: Renato
+Prognostics:	 Chronic cholestasis	 Hepatitis D	 hepatitis A
