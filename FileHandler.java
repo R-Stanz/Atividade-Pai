@@ -156,6 +156,12 @@ public class FileHandler{
 				File symptomsFile	= new File(fileAddress);
 				Scanner fileReader 	= new Scanner(symptomsFile);
 
+				// Keeps track if its the first iteration,
+				// because when the scanner gets the nextInt
+				// it will leave a broken line that will cause
+				// problems to get the patients names with nextLine
+				Boolean firstPatient = true;
+
 				// To hold the prognostics on each patient
 				HashSet<Integer> prognosticSet;
 
@@ -164,15 +170,28 @@ public class FileHandler{
 				// 	appended at the end of the file
 				while(fileReader.hasNext()){
 					// Gets only the name of the patient
-					results 	+= "Pacient: " + fileReader.nextLine();
+					if(firstPatient) 	firstPatient = false;
+					else			fileReader.nextLine();
+					results 		+= "Pacient: " + fileReader.nextLine();
 
-					// Start getting the prognostics
+					// Starts getting the prognostics
 					results		+= "\nPrognostics:";
 					symptomQueue 	 = new LinkedList<>();
-					while(fileReader.hasNextInt()){
-						Integer symptom = fileReader.nextInt();
-						symptomQueue.add(symptom); 
+					Integer symptom;
+					for(Integer i = 0; i < symptomNames.size(); i++){
+
+						// Different from when building the
+						// tree, because in this case there
+						// is no use in this program to know
+						//  what the patient doesn't have
+						// after already knowing everything
+						// 	      they have
+						 	      
+						if(fileReader.hasNextInt()) 	symptom = fileReader.nextInt();
+						else				break;
+						if(symptom == 1) 		symptomQueue.add(i);
 					}
+					System.out.println(symptomQueue);
 					prognosticSet = tree.checkSymptomPath(symptomQueue);
 					System.out.println(prognosticSet.size());
 					if(prognosticSet.isEmpty()) results += " Unknown";
@@ -183,11 +202,12 @@ public class FileHandler{
 					}
 				}
 				fileReader.close();
+				System.out.println(results);
 			}
 			catch(FileNotFoundException e){
 				System.out.println("Error while trying to use the tree");
 				e.printStackTrace();
-			}
+			}/*
 			try{
 				// By the end of the input file must be appended
 				//  the index of the prognostic and before that 
@@ -200,7 +220,7 @@ public class FileHandler{
 			}
 			catch(IOException e){
 				System.out.println("Error while writing the prognostics results. Exception " + e);
-			}
+			}*/
 		}
 	}
 }
