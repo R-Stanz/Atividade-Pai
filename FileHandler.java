@@ -175,7 +175,7 @@ public class FileHandler{
 						fileReader.nextLine();
 						results += "\n";
 					}
-					results 		+= "Pacient: " + fileReader.nextLine();
+					results 		+= "\nPacient: " + fileReader.nextLine();
 
 					// Starts getting the prognostics
 					results		+= "\nPrognostics:";
@@ -195,11 +195,9 @@ public class FileHandler{
 						if(symptom == 1) 		symptomQueue.add(i);
 					}
 					prognosticSet = tree.checkSymptomPath(symptomQueue);
-					System.out.println(prognosticSet.size());
 					if(prognosticSet.isEmpty()) results += " Unknown";
 					else{
 						for(Integer index : prognosticSet){
-							System.out.println(index);
 							results += "\t " + sicknessNames.get(index-1);
 						}
 					}
@@ -210,7 +208,7 @@ public class FileHandler{
 			catch(FileNotFoundException e){
 				System.out.println("Error while trying to use the tree");
 				e.printStackTrace();
-			}/*
+			}
 			try{
 				// By the end of the input file must be appended
 				//  the index of the prognostic and before that 
@@ -223,7 +221,7 @@ public class FileHandler{
 			}
 			catch(IOException e){
 				System.out.println("Error while writing the prognostics results. Exception " + e);
-			}*/
+			}
 		}
 	}
 }
